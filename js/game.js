@@ -1,10 +1,54 @@
 // set up canvas
-
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
+//Getting the location of the canvas
+const canvasRect = canvas.getBoundingClientRect();
+
 const width = (canvas.width = window.innerWidth);
 const height = (canvas.height = window.innerHeight);
+
+//Variable for game status
+var isGameActive = false;
+
+//Creating button
+createCenteredButton("Start Game");
+
+//Creating the start button
+function createCenteredButton(text) {
+  //Math for center of the canvas
+  var top = canvasRect.top + ((canvasRect.bottom - canvasRect.top) / 2);
+  var left =  canvasRect.left + ((canvasRect.right - canvasRect.left) / 2);
+
+  var startGameButton = document.createElement("BUTTON");
+  startGameButton.innerHTML = text;
+  startGameButton.id = "btn-startGame";
+  startGameButton.onclick = startGame;
+  startGameButton.style.position = "absolute";
+  startGameButton.style.left = left + "px";
+  startGameButton.style.top = top + "px";
+
+  document.body.appendChild(startGameButton);
+}
+
+//Function to start the Game
+function startGame() {
+  var startGameButton = document.getElementById("btn-startGame");
+  
+  // 1. Check if the button exists before trying to remove it
+  if (startGameButton) {
+      startGameButton.remove();
+  }
+  
+  // 2. Set the game status to active
+  isGameActive = true;
+
+  resetGame();
+  
+  // 3. Start the game loop by calling it for the first time
+  loop();
+}
+
 
 //Creation of the variable to interact with the paragraph
 const ballCountParagraph = document.querySelector("p");
@@ -157,24 +201,35 @@ class Ball extends Shape{
 
 const balls = [];
 
-while (balls.length < 25) {
-  const size = random(10, 20);
-  const ball = new Ball(
-    // ball position always drawn at least one ball width
-    // away from the edge of the canvas, to avoid drawing errors
-    random(0 + size, width - size),
-    random(0 + size, height - size),
-    random(-7, 7),
-    random(-7, 7),
-    randomRGB(),
-    size
-  );
+function resetGame() {
+    // Reset the count and clear the array
+    ballTotal = 0;
+    balls.length = 0; // Efficiently clears the array
 
-  balls.push(ball);
+    // Repopulate the balls array
+    while (balls.length < 5) {
+      const size = random(10, 20);
+      const ball = new Ball(
+        random(0 + size, width - size),
+        random(0 + size, height - size),
+        random(-7, 7),
+        random(-7, 7),
+        randomRGB(),
+        size
+      );
+
+      balls.push(ball);
+    }
+    
+    // Reset the Evil Circle's position
+    evilCircle.x = width / 2;
+    evilCircle.y = height / 2;
 }
 
 //Creating the Evil Circle at the center of the screen
 const evilCircle = new EvilCircle(width/2, height/2);
+
+resetGame();
 
 function loop() {
   
@@ -194,9 +249,17 @@ function loop() {
   evilCircle.collisionDetect();
 
 
-  requestAnimationFrame(loop);
-
   ballCountParagraph.textContent = "Ball Count: " + ballTotal;
-}
 
-loop();
+  if(ballTotal == 0) {
+    isGameActive = false;
+  }
+
+  if(isGameActive) {
+    requestAnimationFrame(loop);
+  } else {
+    createCenteredButton("Try Again?");
+    return;
+  }
+
+}
