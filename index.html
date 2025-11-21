@@ -1,18 +1,36 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Bouncing balls</title>
+    <link rel="stylesheet" href="css/gameStyle.css">
+  </head>
 
-<head>
-  <meta charset="utf-8">
-  <title>Hello World!</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
-</head>
+  <body>
+    <h1>bouncing balls</h1>
+    <!-- Taken from Lab Materials -->
+    <p>Ball Count: </p>
+    <canvas></canvas>
 
-<body>
-  <h1>HTML Rocks!</h1>
-  <img src="img/compile.jpeg">
-  <script type="module" src="js/main.js"></script>
-</body>
+    <div class="topScores">
+      <thead>
+      <table id="db_table">
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Score</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>...</td>
+                      <td></td>
+                  </tr>
+              </tbody>
+          </table>
+    </div>
 
+    <script src="js/game.js"></script>
+  </body>
 </html>
