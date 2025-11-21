@@ -21,3 +21,9 @@ For the stretch goals of the project, I would want to extend the amount of games
 ![wireframe](IndexPage.png)
 ![wireframe](AdminPage.png)
 ![wireframe](ScoresPage.png)
+
+## Sources:
+
+1. https://www.w3schools.com/css/css_dimension.asp 
+2. https://www.w3schools.com/css/css_navbar.asp
+3. 
