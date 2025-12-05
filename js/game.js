@@ -1,3 +1,9 @@
+//Defining Key strokes for non stutter movement on Evil Sphere
+const keys = {
+  left: false,
+  right: false
+};
+
 // set up canvas
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
@@ -82,20 +88,24 @@ class EvilCircle extends Shape{
     this.size = 10;
     this.color = `rgb(255, 255, 255)`;
 
-    //Code Segment taken from Lab Materials
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
         case "a":
-          this.x -= this.velX;
+          keys.left = true;
           break;
         case "d":
-          this.x += this.velX;
+          keys.right = true;
           break;
-        case "w":
-          this.y -= this.velY;
+      }
+    });
+
+    window.addEventListener("keyup", (e) => {
+      switch (e.key) {
+        case "a":
+          keys.left = false;
           break;
-        case "s":
-          this.y += this.velY;
+        case "d":
+          keys.right = false;
           break;
       }
     });
@@ -110,20 +120,12 @@ class EvilCircle extends Shape{
   }
 
   checkBounds() {
-    if (this.x + this.size >= width) {
-      this.x = width - this.size;
+    if (this.x + this.size >= (width - this.size)) {
+      this.x = width - 3 * this.size;
     }
 
-    if (this.x - this.size <= 0) {
-      this.x = width + this.size;
-    }
-
-    if (this.y + this.size >= height) {
-      this.y = height - this.size;
-    }
-
-    if (this.y - this.size <= 0) {
-      this.y = height + this.size;
+    if (this.x - this.size <= this.size) {
+      this.x = 3 * this.size;
     }
   }
 
@@ -223,15 +225,22 @@ function resetGame() {
     
     // Reset the Evil Circle's position
     evilCircle.x = width / 2;
-    evilCircle.y = height / 2;
 }
 
 //Creating the Evil Circle at the center of the screen
-const evilCircle = new EvilCircle(width/2, height/2);
+const evilCircle = new EvilCircle(width/2, height - 30);
 
 resetGame();
 
 function loop() {
+  //Movement for evilCircle
+  if(keys.left) { 
+    evilCircle.x -= evilCircle.velX;
+  }
+  if(keys.right) { 
+    evilCircle.x += evilCircle.velX;
+  }
+  
   
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, width, height);
