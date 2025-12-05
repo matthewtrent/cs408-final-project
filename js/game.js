@@ -32,10 +32,10 @@ class Shape {
 }
 
 class Bullet extends Shape{
-  constructor(x,y) {
-    super(x, y, 10, 10);
+  constructor(x) {
+    super(x, height - 40, 0, 10);
     this.size = 5;
-    this.color = `rgb(0, 0, 0)`;
+    this.color = `rgb(255, 0, 0)`;
   }
 
   draw() {
@@ -43,7 +43,41 @@ class Bullet extends Shape{
     ctx.fillStyle = this.color;
     ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
     ctx.fill();
-  }  
+  }
+
+  update() {
+    if (this.y - this.size <= 0) {
+      const indexBullets = bullets.indexOf(this);
+      if(indexBullets > -1) {
+        bullets.splice(indexBullets, 1);
+      }
+    }
+    this.y -= this.velY;
+  }
+  
+  collisionDetect() {
+    for (const ball of balls) {
+      const dx = this.x - ball.x;
+      const dy = this.y - ball.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance < this.size + ball.size) {
+        //Removing the Ball and Bullet 
+
+        const indexBalls = balls.indexOf(ball);
+        if(indexBalls > -1) {
+           balls.splice(indexBalls, 1);
+        }
+
+        const indexBullets = bullets.indexOf(this);
+        if(indexBullets > -1) {
+           bullets.splice(indexBullets, 1);
+        }
+
+        score += 1;
+      }
+    }
+  }
 }
 
 class EvilCircle extends Shape{
@@ -60,6 +94,9 @@ class EvilCircle extends Shape{
         case "d":
           keys.right = true;
           break;
+        case "w":
+          summonBullet(this.x);
+          break;
       }
     });
 
@@ -71,13 +108,6 @@ class EvilCircle extends Shape{
         case "d":
           keys.right = false;
           break;
-      }
-    });
-
-    window.addEventListener("keydown", (e) => {
-      switch (e.key) {
-        case "Space":
-          summonBullet(this.x, this.y);
       }
     });
   }
@@ -102,25 +132,23 @@ class EvilCircle extends Shape{
 
   collisionDetect() {
     for (const ball of balls) {
-      if (ball.exists == true) {
-        const dx = this.x - ball.x;
-        const dy = this.y - ball.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+      const dx = this.x - ball.x;
+      const dy = this.y - ball.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (distance < this.size + ball.size) {
-          isGameActive = false;
-        }
+      if (distance < this.size + ball.size) {
+        isGameActive = false;
       }
     }
   }
 }
+
 
 class Ball extends Shape{
   constructor(x, y, velX, velY, color, size) {
     super(x, y, velX, velY);
     this.color = color;
     this.size = size;
-    this.exists = true;
   }
   
 
@@ -154,7 +182,7 @@ class Ball extends Shape{
 
   collisionDetect() {
     for (const ball of balls) {
-      if (!(this === ball) && ball.exists == true) {
+      if (!(this === ball)) {
         const dx = this.x - ball.x;
         const dy = this.y - ball.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
@@ -216,8 +244,9 @@ function randomRGB() {
 
 const bullets = [];
 
-function summonBullet(x, y) {
-  
+function summonBullet(x) {
+  const bullet = new Bullet(x);
+  bullets.push(bullet);
 }
 
 //Creation of the variable to interact with the paragraph
@@ -232,6 +261,7 @@ function resetGame() {
     // Reset the count and clear the array
     score = 0;
     balls.length = 0; // Efficiently clears the array
+    bullets.length = 0;
 
     // Repopulate the balls array
     while (balls.length < MaxBalls) {
@@ -270,17 +300,30 @@ function loop() {
   ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
   ctx.fillRect(0, 0, width, height);
 
+  while(balls.length < MaxBalls) {
+      const size = random(10, 20);
+      const ball = new Ball(
+        random(0 + size, width - size),
+        random(0 + size, height - size),
+        random(-7, 7),
+        random(-7, 7),
+        randomRGB(),
+        size
+      );
+
+      balls.push(ball);
+  }
+
   for (const ball of balls) {
-    if(ball.exists) {
       ball.draw();
       ball.update();
       ball.collisionDetect();
-    }
   }
 
   for (const bullet of bullets) {
     bullet.draw();
-
+    bullet.collisionDetect();
+    bullet.update();
   }
 
   evilCircle.draw();
