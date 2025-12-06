@@ -336,8 +336,23 @@ function loop() {
   if(isGameActive) {
     requestAnimationFrame(loop);
   } else {
+    let nick = prompt("What nickname would you like stored for the score: " + score);
+    sendData(nick);
     createCenteredButton("Try Again?");
     return;
   }
 
+}
+
+function sendData(name) {
+    console.log(name + score);
+    let id = random(1,1000);
+    let xhr = new XMLHttpRequest();
+    xhr.open("PUT", "https://wa61ootuak.execute-api.us-east-2.amazonaws.com/items");
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.send(JSON.stringify({
+        "id": String(id),
+        "price": String(score),
+        "name": name
+    }));
 }
