@@ -344,15 +344,54 @@ function loop() {
 
 }
 
+
+let tableData = [];
+
 function sendData(name) {
-    console.log(name + score);
-    let id = random(1,1000);
     let xhr = new XMLHttpRequest();
-    xhr.open("PUT", "https://wa61ootuak.execute-api.us-east-2.amazonaws.com/items");
+    xhr.open("PUT", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify({
-        "id": String(id),
-        "price": String(score),
+        "id": String(tableData.length),
+        "score": String(score),
         "name": name
     }));
+
+    xhr.addEventListener("load", loadData);
+}
+
+loadData();
+
+function loadData() {
+    //Clear Existing Table
+    const table = document.getElementById('db_table');
+    while(table.rows[1]) {
+        table.rows[1].remove();
+    }
+
+
+    let xhr = new XMLHttpRequest();
+    xhr.responseType = "json";
+    xhr.addEventListener("load", function () {
+        addToTable(xhr.response);
+        tableData = xhr.response;
+    });
+    xhr.open("GET", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
+    xhr.send();
+}
+
+function addToTable(response) {
+    response = response.sort((a,b) => b.score - a.score);
+    let table = document.getElementById("db_table");
+    let min = Math.min(response.length, 5);
+    for(let i = min; i > 0; i--) {
+        var row = table.insertRow(1);
+
+        var rowName = row.insertCell(0);
+        var rowScore = row.insertCell(1);
+
+        // Add some text to the new cells:
+        rowName.innerHTML = response[i - 1].name;
+        rowScore.innerHTML = response[i - 1].score;  
+    }
 }

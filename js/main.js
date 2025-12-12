@@ -26,7 +26,7 @@ function loadData() {
     xhr.addEventListener("load", function () {
         addToTable(xhr.response);
     });
-    xhr.open("GET", "https://wa61ootuak.execute-api.us-east-2.amazonaws.com/items");
+    xhr.open("GET", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
     xhr.send();
 }
 
@@ -36,7 +36,7 @@ function loadData() {
  */
 function deleteData(idValue) {
     let xhr = new XMLHttpRequest();
-    xhr.open("DELETE", "https://wa61ootuak.execute-api.us-east-2.amazonaws.com/items/" + idValue);
+    xhr.open("DELETE", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items/" + idValue);
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send();
 }
@@ -46,11 +46,11 @@ function deleteData(idValue) {
  */
 function sendData() {
     let xhr = new XMLHttpRequest();
-    xhr.open("PUT", "https://wa61ootuak.execute-api.us-east-2.amazonaws.com/items");
+    xhr.open("PUT", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify({
         "id": document.getElementById("input_id").value,
-        "price": Number(document.getElementById("input_price").value),
+        "score": Number(document.getElementById("input_price").value),
         "name": document.getElementById("input_name").value
     }));
 
@@ -80,7 +80,7 @@ function addToTable(response) {
         // Add some text to the new cells:
         rowID.innerHTML = response[i].id;
         rowName.innerHTML = response[i].name;
-        rowPrice.innerHTML = response[i].price;  
+        rowPrice.innerHTML = response[i].score;  
         rowButton.appendChild(removeRow);
     }
 
