@@ -209,6 +209,7 @@ function createCenteredButton(text) {
   startGameButton.style.position = "absolute";
   startGameButton.style.left = left + "px";
   startGameButton.style.top = top + "px";
+  startGameButton.style.transform = "translate(-50%, -50%)";
 
   document.body.appendChild(startGameButton);
 }
@@ -337,7 +338,10 @@ function loop() {
     requestAnimationFrame(loop);
   } else {
     let nick = prompt("What nickname would you like stored for the score: " + score);
-    sendData(nick);
+    if(nick != null && nick != " ") {
+      console.log(nick);
+      sendData(nick);
+    }
     createCenteredButton("Try Again?");
     return;
   }
