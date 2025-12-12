@@ -373,15 +373,16 @@ function loadData() {
     let xhr = new XMLHttpRequest();
     xhr.responseType = "json";
     xhr.addEventListener("load", function () {
-        addToTable(xhr.response);
-        tableData = xhr.response;
+        var data = xhr.response;
+        data = data.sort((a,b) => b.score - a.score);
+        addToTable(data);
+        tableData = data;
     });
     xhr.open("GET", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
     xhr.send();
 }
 
 function addToTable(response) {
-    response = response.sort((a,b) => b.score - a.score);
     let table = document.getElementById("db_table");
     let min = Math.min(response.length, 5);
     for(let i = min; i > 0; i--) {

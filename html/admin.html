@@ -7,7 +7,7 @@
     <title>Admin Page</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src = "../js/main.js"></script>
+    <script src = "../js/admin.js"></script>
 </head>
 
 <body>
@@ -26,21 +26,27 @@
         <button name="load-data" id="load-data">Load All Items</button>
     </header>
 
+    <div class="name_search">
+        <h2>Search by Name</h2>
+        <div class="item_add_content">
+            <label for="name">Name: </label>
+            <input type="text" name="name" id="input_name" placeholder="placeholder">
+        </div>
+        <div class="search_container">
+            <button id="submit-item">Search</button>
+        </div>
+    </div>
+
     <table id="db_table">
         <thead>
             <tr>
-                <th>id</th>
                 <th>Name</th>
-                <th>Price</th>
+                <th>Score</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <tr>
-                <td>...</td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
         </tbody>
     </table>
@@ -50,12 +56,10 @@
     <div class="item_add">
         <h2>Add New Item to Database</h2>
         <div class="item_add_content">
-            <label for="id">ID: </label>
-            <input type="number" name="id" id="input_id" placeholder="placeholder">
             <label for="name">Name: </label>
             <input type="text" name="name" id="input_name" placeholder="placeholder">
-            <label for="price">Price: </label>
-            <input type="number" name="price" id="input_price" placeholder="placeholder">
+            <label for="score">Score: </label>
+            <input type="number" name="score" id="input_score" placeholder="placeholder">
         </div>
         <div class="add-button-container">
             <button id="submit-item">Add Item</button>

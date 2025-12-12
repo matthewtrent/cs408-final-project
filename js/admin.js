@@ -1,11 +1,15 @@
 window.onload = loaded;
 
+let loadedData = [];
+
 /**
  * Simple Function that will be run when the browser is finished loading.
  */
 function loaded() {
     document.getElementById("load-data").onclick = loadData;
     document.getElementById("submit-item").onclick = sendData;
+    document.getElementById("submit-item").onclick = search;
+    loadData();
 }
 
 
@@ -16,7 +20,7 @@ function loaded() {
 function loadData() {
     //Clear Existing Table
     const table = document.getElementById('db_table');
-    while(table.rows[1].cells[0].innerHTML != "...") {
+    while(table.rows[1]) {
         table.rows[1].remove();
     }
 
@@ -24,7 +28,10 @@ function loadData() {
     let xhr = new XMLHttpRequest();
     xhr.responseType = "json";
     xhr.addEventListener("load", function () {
-        addToTable(xhr.response);
+        var data = xhr.response;
+        data = data.sort((a,b) => b.score - a.score);
+        addToTable(data);
+        loadedData = data;
     });
     xhr.open("GET", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
     xhr.send();
@@ -49,8 +56,8 @@ function sendData() {
     xhr.open("PUT", "https://cfsl49smnb.execute-api.us-east-2.amazonaws.com/items");
     xhr.setRequestHeader("Content-Type", "application/json");
     xhr.send(JSON.stringify({
-        "id": document.getElementById("input_id").value,
-        "score": Number(document.getElementById("input_price").value),
+        "id": String(loadedData.length),
+        "score": Number(document.getElementById("input_score").value),
         "name": document.getElementById("input_name").value
     }));
 
@@ -72,16 +79,17 @@ function addToTable(response) {
         removeRow.id = i + 1;
         removeRow.onclick = BtnDeleteRowClick;
 
-        var rowID = row.insertCell(0);
-        var rowName = row.insertCell(1);
-        var rowPrice = row.insertCell(2);
-        var rowButton = row.insertCell(3);
+        var rowName = row.insertCell(0);
+        var rowScore = row.insertCell(1);
+        var rowButton = row.insertCell(2);
+        var rowID = row.insertCell(3);
+        rowID.style.display = 'none';
 
         // Add some text to the new cells:
-        rowID.innerHTML = response[i].id;
         rowName.innerHTML = response[i].name;
-        rowPrice.innerHTML = response[i].score;  
+        rowScore.innerHTML = response[i].score;  
         rowButton.appendChild(removeRow);
+        rowID.innerHTML = response[i].id;
     }
 
     
@@ -97,9 +105,35 @@ function BtnDeleteRowClick() {
     let table = document.getElementById("db_table");
     let wantedRow = table.rows[rowIndexToDelete];
 
-    deleteData(wantedRow.cells[0].innerHTML);
+    deleteData(wantedRow.cells[3].innerHTML);
 
     wantedRow.remove();
 }
 
+var searchedData = [];
 
+function search() {
+    clearTable();
+    searchedData = [];
+    const inputName = document.getElementById("input_name");
+    var searchName = inputName.value;
+    inputName.value = "";
+
+    if(searchName == "") {
+        loadData();
+    }
+
+    for(let i = 0; i < loadedData.length; i++) {
+        if(loadedData[i].name == searchName) {
+            searchedData.push(loadedData[i]);
+        }
+    }
+    addToTable(searchedData);
+}
+
+function clearTable() {
+    const table = document.getElementById('db_table');
+    while(table.rows[1]) {
+        table.rows[1].remove();
+    }
+}
