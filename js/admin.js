@@ -8,7 +8,7 @@ let loadedData = [];
 function loaded() {
     document.getElementById("load-data").onclick = loadData;
     document.getElementById("submit-item").onclick = sendData;
-    document.getElementById("submit-item").onclick = search;
+    document.getElementById("submit-search").onclick = search;
     loadData();
 }
 
@@ -115,7 +115,7 @@ var searchedData = [];
 function search() {
     clearTable();
     searchedData = [];
-    const inputName = document.getElementById("input_name");
+    const inputName = document.getElementById("search_name");
     var searchName = inputName.value;
     inputName.value = "";
 
