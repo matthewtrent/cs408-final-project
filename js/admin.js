@@ -118,7 +118,7 @@ function search() {
     var searchName = inputName.value;
     inputName.value = "";
 
-    if(searchName == "") {
+    if(searchName == "" || searchName == null) {
         loadData();
     }
 
