@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US"></html>
 
 <head>
     <meta charset="utf-8">
@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src = "../js/admin.js"></script>
+    <link rel="stylesheet" href="../css/admin.css">
 </head>
 
 <body>
@@ -19,47 +20,44 @@
         </ul> 
     </nav>
 
-    <p id="lambda-info"></p>
+    <main>
+        <header>
+            <h1>Admin</h1>
+        </header>
 
-    <header>
-        <h1>Admin</h1>
-        <button name="load-data" id="load-data">Load All Items</button>
-    </header>
-
-    <div class="name_search">
-        <h2>Search by Name</h2>
-        <div class="item_add_content">
-            <label for="name">Name: </label>
-            <input type="text" name="name" id="searh_name" placeholder="placeholder">
+        <div class="name_search">
+            <h2>Search by Name</h2>
+            <div>
+                <label for="searh_name">Name: </label>
+                <input type="text" name="name" id="searh_name" placeholder="Nickname">
+                <button id="submit-search">Search</button>
+            </div>
         </div>
-        <div class="search_container">
-            <button id="submit-search">Search</button>
-        </div>
-    </div>
 
-    <table id="db_table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Score</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
+        <table id="db_table">
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+    </main>
 
     <hr>
 
     <div class="item_add">
         <h2>Add New Item to Database</h2>
         <div class="item_add_content">
-            <label for="name">Name: </label>
-            <input type="text" name="name" id="input_name" placeholder="placeholder">
-            <label for="score">Score: </label>
-            <input type="number" name="score" id="input_score" placeholder="placeholder">
+            <label for="input_name">Name: </label>
+            <input type="text" name="name" id="input_name" placeholder="Nickname">
+            <br>
+            <label for="input_score">Score: </label>
+            <input type="number" name="score" id="input_score" placeholder="0">
         </div>
         <div class="add-button-container">
             <button id="submit-item">Add Item</button>

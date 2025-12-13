@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
     <meta charset="utf-8">
@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src = "../js/scores.js"></script>
+    <link rel="stylesheet" href="../css/scores.css">
 </head>
 
 <body>
@@ -19,36 +20,35 @@
         </ul> 
     </nav>
 
-    <header>
-        <h1>Score</h1>
-        <button name="load-data" id="load-data">Load All Items</button>
-    </header>
+    <main>
+        <header>
+            <h1>Scores</h1>
+        </header>
 
-    <div class="name_search">
-        <h2>Search by Name</h2>
-        <div class="item_add_content">
-            <label for="name">Name: </label>
-            <input type="text" name="name" id="input_name" placeholder="placeholder">
+        <div class="name_search">
+            <h2>Search by Name</h2>
+            <div class="item_add_content">
+                <label for="input_name">Name: </label>
+                <input type="text" name="name" id="input_name" placeholder="placeholder">
+                <button id="submit-item">Search</button>
+            </div>
         </div>
-        <div class="search_container">
-            <button id="submit-item">Search</button>
-        </div>
-    </div>
 
-    <table id="db_table">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Score</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
+        <table id="db_table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
 
-    <hr>
+    </main>
+
 
 </body>
 

@@ -1,0 +1,66 @@
+body {
+  display: flex;
+}
+
+/* Taken from https://www.w3schools.com/css/css_navbar_vertical.asp */ 
+nav ul {
+  list-style-type: none;
+  margin: 10%;
+  padding: 0;
+  width: 130px;
+  background-color: #f1f1f1;
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
+nav li a {
+  margin-top: 20%;
+  display: block;
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+/* Change the link and background color on hover */
+nav li a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+/* Main content area */
+main {
+  flex-grow: 1; /* take remaining horizontal space */
+  padding: 20px;
+  background-color: #fafafa;
+}
+
+/* Header styling */
+header h1 {
+  margin-top: 0;
+}
+
+/* Search section styling */
+.name_search {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th, table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+table th {
+  background-color: #f2f2f2;
+}

@@ -6,7 +6,6 @@ let loadedData = [];
  * Simple Function that will be run when the browser is finished loading.
  */
 function loaded() {
-    document.getElementById("load-data").onclick = loadData;
     document.getElementById("submit-item").onclick = sendData;
     document.getElementById("submit-search").onclick = search;
     loadData();

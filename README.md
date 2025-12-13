@@ -16,6 +16,10 @@ The data that will be collected will be the scores that a user would submit.
 
 For the stretch goals of the project, I would want to extend the amount of games that would be offered and rather than have the index page be game, I would allow the user to select a given game from the catalogue. Each game would then have their own scores that with the top 5 being displayed on the page with the game, and the best score being displayed on the homepage. The score page would then be expanded so that the user would be able to sort the scores by game as well as by nickname.
 
+## Game Controls
+For the controls you move left and right with a and d 
+To shoot press w
+
 ## Project Wireframe
 
 ![wireframe](IndexPage.png)
@@ -26,4 +30,9 @@ For the stretch goals of the project, I would want to extend the amount of games
 
 1. https://www.w3schools.com/css/css_dimension.asp 
 2. https://www.w3schools.com/css/css_navbar.asp
-3. 
+3. https://dev.to/slimpython sort-array-of-json-object-by-key-value-easily-with-javascript-3hke
+4. https://www.w3schools.com/css/css_navbar_vertical.asp 
+5. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array 
+6. https://stackoverflow.com/questions/29041583/table-in-javascript-hide-show-columns
+7. https://www.w3schools.com/js/js_array_sort.asp
+8. Chat GPT was used to help with styling

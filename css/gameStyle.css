@@ -1,5 +1,72 @@
 canvas {
-  height: 600px;
-  width: 1000px;
   background-color: black;
+  width: 70%;              /* Fill available width */
+  height: auto;             /* Resize proportionally */
+  margin-right: 20px;
+  margin-left: 20px;
+}
+
+body {
+  display: flex;
+  height: 100vh;            /* Full screen height */
+  margin: 0;
+  overflow: hidden;         /* Prevent horizontal scroll */
+}
+
+/* Taken from https://www.w3schools.com/css/css_navbar_vertical.asp */ 
+nav ul {
+  list-style-type: none;
+  margin: 10%;
+  padding: 0;
+  width: 130px;
+  background-color: #f1f1f1;
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scrolling if the sidenav has too much content */
+}
+
+nav li a {
+  margin-top: 20%;
+  display: block;
+  color: black;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+/* Change the link and background color on hover */
+nav li a:hover {
+  background-color: #555555;
+  color: white;
+}
+
+/* MAIN GAME SECTION */
+main {
+  flex: 1;                  /* Take all available space between nav + scores */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main h1 {
+  text-align: center;
+}
+
+main p{
+  text-align: center;
+}
+
+.topScores {
+  margin-left: auto;     /* Push scores all the way to the right */
+  padding: 10px;
+  background: #f1f1f1;
+  border-left: 2px solid #ccc;
+}
+
+.topScores table {
+  border-collapse: collapse;
+}
+
+.topScores th, .topScores td {
+  border: 1px solid #999;
+  padding: 6px 10px;
+  text-align: left;
 }
